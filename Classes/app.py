@@ -26,3 +26,34 @@ class Empregados:
     def receber_aumento(self, projetos_finalizados):
         raise NotImplementedError
 
+
+class Desenvolvedor(Empregados):
+    porcentagem_aumento = 0.08
+
+    def __init__(self, linguagens_programacao, litros_cafe, burnout):
+        self.linguagens_programacao = linguagens_programacao
+        self.litros_cafe = 0.0
+        self.burnout = bool(burnout)
+
+    def adicionar_linguagem():
+        pass
+
+    def beber_cafe(self, litros_cafe, burnout):
+        pass
+
+
+class GerenteProjeto(Empregados):
+    porcentagem_aumento = 0.012
+
+    def __init__(self, time, projetos_envolvidos):
+        self.time = time #Fazer uma lista com os desenvolvedores do time
+        self.projetos_envolvidos = projetos
+
+    def adicionar_desenvolvedor():
+        pass
+
+    def remover_desenvolvedor():
+        pass
+
+    def participar_projeto():
+        pass
