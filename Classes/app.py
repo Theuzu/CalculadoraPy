@@ -1,27 +1,32 @@
+from time import sleep
+
 class Empregados:
     numero_empregados = 0
 
-    def __init__(self, nome_completo, email, matricula_funcional, salario):
+    def __init__(self, nome_completo, email, matricula_funcional, salario, trabalhando):
         self.nome_completo = nome_completo
         self.email = email
         self.matricula_funcional = matricula_funcional
         self.salario = salario
-        self.trabalhando = False
+        self.trabalhando = trabalhando
+        self.burnout = False  # Adicione essa linha para evitar erros
 
         print(f'O empregado {self.nome_completo}, foi contratado, com um salário de {self.salario}!'
-        + f'\n\t Matricula: {self.matricula_funcional}'
-        + f'\n\t Email Profissional: {self.email}')
+              + f'\n\t Matricula: {self.matricula_funcional}'
+              + f'\n\t Email Profissional: {self.email}')
 
-    def inicar_jornada(self, trabalhando):
         Empregados.numero_empregados += 1
-        self.trabalhando = true
 
-        print(f'O funcionário {nome_completo}, ({matricula_funcional}) iniciou sua jornada de trabalho')
+    def iniciar_jornada(self):
+        self.trabalhando = True
+        print(f'O funcionário {self.nome_completo} ({self.matricula_funcional}), iniciou sua jornada de trabalho')
 
     def finalizar_jornada(self):
-        self.trabalhando = false
-
-        print(f'O funcionário {nome_completo}, ({matricula_funcional}) finalizou sua jornada de trabalho')
+        self.trabalhando = False
+        if self.burnout:
+            print(f'O funcionário {self.nome_completo} ({self.matricula_funcional}), finalizou sua jornada de trabalho sofrendo um burnout')
+        else: 
+            print(f'O funcionário {self.nome_completo} ({self.matricula_funcional}), finalizou sua jornada de trabalho')
 
     def receber_aumento(self, projetos_finalizados):
         raise NotImplementedError
@@ -30,51 +35,63 @@ class Empregados:
 class Desenvolvedor(Empregados):
     porcentagem_aumento = 0.08
 
-    def __init__(self, nome_completo, email, matricula_funcional, salario, linguagens_programacao, litros_cafe, burnout):
-        super(Desenvolvedor, self).__init__(nome_completo, email, matricula_funcional, salario)
+    def __init__(self, nome_completo, email, matricula_funcional, salario, trabalhando, linguagens_programacao, litros_cafe, burnout):
+        super(Desenvolvedor, self).__init__(nome_completo, email, matricula_funcional, salario, trabalhando)
         self.linguagens_programacao = linguagens_programacao
         self.litros_cafe = litros_cafe
         self.burnout = burnout
-        print(f'O Empregado {nome_completo}, foi contratado como desenvolvedor!)')
+        print(f'O Empregado {self.nome_completo}, foi contratado como desenvolvedor!)')
 
-    def adicionar_linguagem():
-        pass
+    def adicionar_linguagem(self, linguagem):
+        self.linguagens_programacao.append(linguagem)
+        print(f'O dev {self.nome_completo} aprendeu {linguagem}!')
 
-    def beber_cafe(self, litros_cafe, burnout):
+    def beber_cafe(self, litros_cafe):
         if litros_cafe > 1.20:
-          self.burnout = true
-
+            self.burnout = True
         else:
-          self.burnout = false
+            self.burnout = False
 
 
 class GerenteProjeto(Empregados):
     porcentagem_aumento = 0.012
 
-    def __init__(self, nome_completo, email, matricula_funcional, salario, time, projetos_envolvidos):
-        super(GerenteProjeto, self).__init__(nome_completo, email, matricula_funcional, salario)
-        self.time = time #Fazer uma lista com os desenvolvedores do time
-        self.projetos_envolvidos = projetos
-        print(f'O Gerente {nome_completo}foi contratado como um Gerente!)')
+    def __init__(self, nome_completo, email, matricula_funcional, salario, trabalhando, time, projetos_envolvidos):
+        super(GerenteProjeto, self).__init__(nome_completo, email, matricula_funcional, salario, trabalhando)
+        self.time = time  # Fazer uma lista com os desenvolvedores do time
+        self.projetos_envolvidos = projetos_envolvidos
+        print(f'O Empregado {self.nome_completo}, foi contratado como um Gerente!)')
 
-    def adicionar_desenvolvedor(self, Desenvolvedor):
-        self.time.append(Desenvolvedor)
+    def adicionar_desenvolvedor(self, desenvolvedor):
+        self.time.append(desenvolvedor)
 
-    def remover_desenvolvedor():
+    def remover_desenvolvedor(self):
         pass
 
-    def participar_projeto():
+    def participar_projeto(self):
         pass
 
 
-#---------------------------------------------------------------------------------Exemplos
+# ---------------------------------------------------------------------------------
 
-# desenvolvedor1 = Desenvolvedor(
-#     nome_completo="Matheus",
-#     email="matheus@example.com",
-#     matricula_funcional="001",
-#     salario= 50000,  # Substitua pelo salário desejado
-#     linguagens_programacao=["Python", "JavaScript"],
-#     litros_cafe=1.5,  # Substitua pela quantidade desejada
-#     burnout=False
-# )
+desenvolvedor1 = Desenvolvedor(
+    nome_completo="Matheus",
+    email="matheus@example.com",
+    matricula_funcional="001",
+    salario=50000,  # Substitua pelo salário desejado
+    trabalhando=False,  # Comece com False
+    linguagens_programacao=["Python", "JavaScript"],
+    litros_cafe=0,  # Comece com 0
+    burnout=False,  # Comece com False
+)
+
+sleep(3.00)
+
+desenvolvedor1.iniciar_jornada()
+
+sleep(3.00)
+desenvolvedor1.beber_cafe(1.0)  # Passe quantos litros de café o dev bebeu
+desenvolvedor1.adicionar_linguagem("C++")
+
+sleep(3.00)
+desenvolvedor1.finalizar_jornada()
